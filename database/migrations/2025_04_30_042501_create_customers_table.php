@@ -9,10 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email')->nullable()->unique();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->decimal('total_purchases', 12, 2)->default(0);
+            $table->integer('loyalty_points')->default(0);
             $table->timestamps();
         });
     }
