@@ -13,6 +13,7 @@
     </head>
     <body class="sb-nav-fixed">
         
+        
         @include('theme.header')
 
         <div id="layoutSidenav">
@@ -21,6 +22,8 @@
             <div id="layoutSidenav_content">
 
                 <main>
+                    @include('theme.feedback')
+
                     @yield('content')
                 </main>
                 
