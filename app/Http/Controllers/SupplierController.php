@@ -6,18 +6,17 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-
 class SupplierController extends Controller
 {
     public function index()
     {
         $suppliers = Supplier::all();
-        return view('suppliers.index', compact('suppliers'));
+        return view('suppliers', compact('suppliers'));
     }
 
     public function create()
     {
-        return view('suppliers.create');
+        return view('suppliers.form');
     }
 
     public function store(Request $request)
@@ -30,9 +29,9 @@ class SupplierController extends Controller
             'contact_person' => 'nullable|string|max:255',
             'is_active' => 'boolean',
         ]);
-        
+
         Supplier::create($validatedData);
-        
+
         return redirect()->route('suppliers.index')->with('success', 'Supplier created successfully.');
     }
 
@@ -43,7 +42,7 @@ class SupplierController extends Controller
 
     public function edit(Supplier $supplier)
     {
-        return view('suppliers.edit', compact('supplier'));
+        return view('suppliers.form', compact('supplier'));
     }
 
     public function update(Request $request, Supplier $supplier)
@@ -55,10 +54,10 @@ class SupplierController extends Controller
             'address' => 'nullable|string',
             'contact_person' => 'nullable|string|max:255',
             'is_active' => 'boolean',
-        ]); 
-        
+        ]);
+
         $supplier->update($validatedData);
-        
+
         return redirect()->route('suppliers.index')->with('success', 'Supplier updated successfully.');
     }
 

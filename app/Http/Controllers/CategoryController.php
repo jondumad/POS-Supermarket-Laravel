@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -9,12 +10,12 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        return view('categories', compact('categories'));
     }
 
     public function create()
     {
-        return view('categories.create');
+        return view('categories.form');
     }
 
     public function store(Request $request)
@@ -23,15 +24,15 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
         ]);
-        
+
         Category::create($validatedData);
-        
+
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        return view('categories.form', compact('category'));
     }
 
     public function update(Request $request, Category $category)
@@ -40,9 +41,9 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
             'description' => 'nullable|string',
         ]);
-        
+
         $category->update($validatedData);
-        
+
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 

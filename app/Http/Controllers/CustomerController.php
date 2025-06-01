@@ -11,12 +11,12 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        return view('customers.index', compact('customers'));
+        return view('customers', compact('customers'));
     }
 
     public function create()
     {
-        return view('customers.create');
+        return view('customers.form');
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class CustomerController extends Controller
 
     public function edit(Customer $customer)
     {
-        return view('customers.edit', compact('customer'));
+        return view('customers.form', compact('customer'));
     }
 
     public function update(Request $request, Customer $customer)

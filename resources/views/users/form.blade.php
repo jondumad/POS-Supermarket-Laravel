@@ -8,8 +8,6 @@
       <h1 class="mt-4">Create User</h1>
     @endisset
 
-    @include('theme.feedback')
-
     @isset($user)
       <form action="{{ route('users.update', $user->id) }}" method="POST">
         @method('PUT')
