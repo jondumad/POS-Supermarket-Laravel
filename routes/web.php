@@ -8,9 +8,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ReportController;
 
 // User Routes
-Route::get('dashboard', [UserController::class, 'dashboard']);
 Route::get('users', [UserController::class, 'index'])->name('users');
 Route::get('users/form', [UserController::class, 'create'])->name('users.create');
 Route::get('login', function () {
@@ -92,9 +92,21 @@ Route::post('sales', [SaleController::class, 'store'])->name('sales.store');
 Route::get('sales/{sale}', [SaleController::class, 'show'])->name('sales.show');
 Route::get('sales/{sale}/edit', [SaleController::class, 'edit'])->name('sales.edit');
 Route::put('sales/{sale}', [SaleController::class, 'update'])->name('sales.update');
-Route::delete('sales/{sale}', [SaleController::class, 'destroy'])->name
-('sales.destroy');
+Route::delete('sales/{sale}', [SaleController::class, 'destroy'])->name('sales.destroy');
 Route::post('sales/{sale}/void', [SaleController::class, 'void'])->name('sales.void');
+
+Route::prefix('reports')->name('reports.')->group(function () {
+  Route::get('/', [ReportController::class, 'index'])->name('index');
+  Route::get('/sales', [ReportController::class, 'salesReport'])->name('sales');
+  Route::get('/inventory', [ReportController::class, 'inventoryReport'])->name('inventory');
+  Route::get('/customers', [ReportController::class, 'customerReport'])->name('customers');
+  Route::get('/financial', [ReportController::class, 'financialReport'])->name('financial');
+  Route::get('/product-performance', [ReportController::class, 'productPerformance'])->name('product-performance');
+
+  // Export routes
+  Route::get('/export/sales', [ReportController::class, 'exportSalesReport'])->name('export.sales');
+  Route::get('/export/inventory', [ReportController::class, 'exportInventoryReport'])->name('export.inventory');
+});
 
 // Authentication routes
 Route::get('register', function () {

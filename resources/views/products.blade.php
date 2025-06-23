@@ -93,6 +93,9 @@
                 <h5 class="card-title mb-2 text-truncate" title="{{ $product->name }}">{{ $product->name }}</h5>
                 <p class="card-text text-muted small mb-2">
                   <strong>SKU:</strong> {{ $product->sku }}<br>
+                  <svg class="barcode" jsbarcode-value="{{ $product->sku }}" jsbarcode-format="CODE128"
+                    jsbarcode-height="30" jsbarcode-width="1.5" jsbarcode-displayvalue="false">
+                  </svg>
                   <strong>Category:</strong> {{ $product->category->name ?? 'N/A' }}
                 </p>
               </div>
@@ -187,7 +190,11 @@
                   <td>
                     <div class="fw-bold">{{ $product->name }}</div>
                   </td>
-                  <td>{{ $product->sku }}</td>
+                  <td>
+                    <div class="fw-bold">{{ $product->sku }}</div>
+                    <svg class="barcode" jsbarcode-value="{{ $product->sku }}" jsbarcode-format="CODE128"
+                      jsbarcode-height="30" jsbarcode-width="1.5" jsbarcode-displayvalue="false"></svg>
+                  </td>
                   <td>{{ $product->category->name ?? 'N/A' }}</td>
                   <td class="text-info">${{ number_format($product->purchase_price, 2) }}</td>
                   <td class="text-success">${{ number_format($product->selling_price, 2) }}</td>
@@ -288,8 +295,11 @@
   </style>
 
   <!-- JavaScript for View Toggle -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      JsBarcode(".barcode").init();
+
       const cardViewBtn = document.getElementById('cardView');
       const tableViewBtn = document.getElementById('tableView');
       const cardViewContainer = document.getElementById('cardViewContainer');

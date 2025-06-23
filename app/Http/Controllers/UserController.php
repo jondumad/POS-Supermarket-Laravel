@@ -94,7 +94,7 @@ class UserController extends Controller
 
     if (Auth::attempt($credentials, $request->remember)) {
       $request->session()->regenerate();
-      return redirect()->intended('dashboard');
+      return redirect()->intended('reports');
     }
 
     return back()->withErrors([
